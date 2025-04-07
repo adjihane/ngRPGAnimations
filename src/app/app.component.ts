@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { transition, trigger, useAnimation } from "@angular/animations";
-import { shakeX } from 'ng-animate';
+import { headShake, jello, pulse, rubberBand, shakeX, swing, wobble } from 'ng-animate';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    trigger("death", [
-      transition(
-        ":increment",
-        useAnimation(shakeX, { params: { timing: 0.5 } })
-      ),
-    ]),
+    trigger("death", [transition(":increment", useAnimation(shakeX, { params: { timing: 0.5 } })),]),
+    trigger("attack", [transition(":increment",
+      [useAnimation(wobble, { params: { timing: 0.3, scale: 4.5 } }),
+      useAnimation(pulse, { params: { timing: 0.3, scale: 4.5 } }),
+      ]),]),
   ]
 })
 export class AppComponent {
   slimeIsPresent = false;
   ng_death = 0;
+  ng_attack = 0;
 
   constructor() {
   }
@@ -52,6 +52,8 @@ export class AppComponent {
   attack() {
     // TODO Jouer une animation et augmenter l'intensité du mouvement avec scale
     // TODO Jouer une autre animation avant
+    this.ng_attack++;
+    console.log(this)
   }
 
   hit() {
