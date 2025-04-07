@@ -9,7 +9,7 @@ import { headShake, jello, pulse, rubberBand, shakeX, swing, wobble } from 'ng-a
   animations: [
     trigger("death", [transition(":increment", useAnimation(shakeX, { params: { timing: 0.5 } })),]),
     trigger("attack", [transition(":increment",
-      [useAnimation(wobble, { params: { timing: 0.3, scale: 4.5 } }),
+      [useAnimation(jello, { params: { timing: 0.3, scale: 4.5 } }),
       useAnimation(pulse, { params: { timing: 0.3, scale: 4.5 } }),
       ]),]),
   ]
@@ -18,7 +18,7 @@ export class AppComponent {
   slimeIsPresent = false;
   ng_death = 0;
   ng_attack = 0;
-
+  css_hit = false;
   constructor() {
   }
 
@@ -57,6 +57,9 @@ export class AppComponent {
   }
 
   hit() {
-    // TODO Utilisé Animista pour faire une animation différente avec css (wobble)
+    // TODO Utilisé Animista pour faire une animation différente
+    this.css_hit = true;
+    setTimeout(() => this.css_hit = false, 0.5 * 1000);
+    console.log(this)
   }
 }
